@@ -1,4 +1,18 @@
 {
-    "transactions": []
-  }
-  
+  "transactions": [
+    {
+      "id": "2928",
+      "type": "income",
+      "amount": 300,
+      "category": "saving",
+      "description": "test"
+    },
+    {
+      "id": "7030",
+      "type": "expense",
+      "amount": 200,
+      "category": "Kfc",
+      "description": "Food"
+    }
+  ]
+}
