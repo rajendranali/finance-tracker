@@ -1,70 +1,126 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Expense Tracker
 
-## Available Scripts
+## Description
+Expense Tracker is a web application that helps users track their expenses by categorizing them and providing visual breakdowns using charts. The application leverages React for the frontend and a JSON server for simulating a backend.
 
-In the project directory, you can run:
+## Features
+- Add, edit, and delete transactions
+- Categorize expenses
+- Visualize expense breakdown by category using pie charts
+- Dynamic color generation for chart categories
 
-### `npm start`
+## Technologies Used
+- React
+- Redux
+- Chart.js
+- React-Chartjs-2
+- Chroma-js
+- JSON Server
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
+Make sure you have the following installed:
+- Node.js
+- npm (Node Package Manager)
 
-### `npm test`
+### Installation
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/expense-tracker.git
+   cd expense-tracker
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+3. **Install and start JSON Server:**
+   ```bash
+   npm install -g json-server
+   json-server --watch db.json --port 5000
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Start the React application:**
+   ```bash
+   npm start
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The application should now be running on `http://localhost:3000` and the JSON server should be running on `http://localhost:5000`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## File Structure
+```
+expense-tracker/
+├── public/
+├── src/
+│   ├── components/
+│   │   └── CategoryBreakDown.js
+│   ├── redux/
+│   │   ├── actions/
+│   │   ├── reducers/
+│   │   └── store.js
+│   ├── App.js
+│   ├── index.js
+│   └── ...
+├── db.json
+├── package.json
+├── README.md
+└── ...
+```
 
-### `npm run eject`
+## Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Adding Transactions
+Navigate to the transaction form and input the details of your expense or income. Select the appropriate category and submit the form to add the transaction.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Viewing Expense Breakdown
+Navigate to the "Expense Breakdown" section to view a pie chart that shows the distribution of your expenses across different categories.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Example db.json
+Here is an example `db.json` file for the JSON server:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```json
+{
+  "transactions": [
+    {
+      "id": 1,
+      "type": "expense",
+      "category": "Food",
+      "amount": 50,
+      "description": "Groceries"
+    },
+    {
+      "id": 2,
+      "type": "expense",
+      "category": "Transport",
+      "amount": 20,
+      "description": "Bus fare"
+    },
+    {
+      "id": 3,
+      "type": "income",
+      "category": "Salary",
+      "amount": 1000,
+      "description": "Monthly salary"
+    }
+  ]
+}
+```
 
-## Learn More
+## Contributing
+Feel free to fork this repository and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
+This project is licensed under the MIT License.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
 
-### Code Splitting
+### Additional Information
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Make sure to update the `git clone` URL with your actual repository URL.
+- This `README.md` file includes sections for description, features, technologies, installation, usage, and contribution guidelines.
+- The provided example `db.json` shows how to structure the JSON data for the JSON server.
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This should give users clear instructions on how to set up and use your Expense Tracker project.
