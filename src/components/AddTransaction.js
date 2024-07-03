@@ -80,8 +80,8 @@ const Button = styled.button`
 `;
 
 const ModalButton = styled.button`
-  background-color: #007bff;
-  color: white;
+  background-color: #EEEDEB;
+  color: gray;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -92,6 +92,7 @@ const ModalButton = styled.button`
   &:hover {
     background-color: #0056b3;
     transform: scale(1.02);
+    color:white;
   }
 
   &:active {
@@ -122,7 +123,7 @@ const AddTransaction = () => {
 
   return (
     <>
-      <ModalButton onClick={() => setShowModal(true)}>Add Transaction</ModalButton>
+      <ModalButton onClick={() => setShowModal(true)}>Add Transaction💳</ModalButton>
       {showModal && (
         <FormContainer onClick={() => setShowModal(false)}>
           <Form onClick={(e) => 

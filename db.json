@@ -8,10 +8,59 @@
       "description": "test"
     },
     {
-      "id": "7030",
+      "id": "0f69",
+      "type": "income",
+      "amount": 10000,
+      "category": "Salary",
+      "description": "xy compay"
+    },
+    {
+      "id": "2ae5",
       "type": "expense",
       "amount": 200,
-      "category": "Kfc",
+      "category": "Food",
+      "description": "Daily food"
+    },
+    {
+      "id": "a5a6",
+      "type": "income",
+      "amount": 2000,
+      "category": "Extra income",
+      "description": "out-source"
+    },
+    {
+      "id": "75da",
+      "type": "expense",
+      "amount": 1000,
+      "category": "Shopping",
+      "description": "shoes,Shirt"
+    },
+    {
+      "id": "bd07",
+      "type": "expense",
+      "amount": 2000,
+      "category": "Party",
+      "description": "beer,resurant"
+    },
+    {
+      "id": "054d",
+      "type": "expense",
+      "amount": 100,
+      "category": "Outing",
+      "description": "renting bike"
+    },
+    {
+      "id": "1844",
+      "type": "expense",
+      "amount": 500,
+      "category": "KFC",
+      "description": "Food"
+    },
+    {
+      "id": "fcbf",
+      "type": "expense",
+      "amount": 200,
+      "category": "KFC",
       "description": "Food"
     }
   ]

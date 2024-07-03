@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import AddTransaction from './components/AddTransaction';
 import TransactionList from './components/TransactionList';
 import Summary from './components/Summary';
-// import CategoryBreakdown from './components/CategoryBreakDown'; // Uncomment when ready
+import CategoryBreakDown from './components/CategoryBreakDown';
 
 const Container = styled.div`
   background-color: #f0f0f0;
@@ -31,15 +31,23 @@ const Content = styled.div`
   }
 `;
 
+const LeftColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const RightColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
 const DashboardSection = styled.div`
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-
-  &:nth-child(odd) {
-    background-color: #f8f9fa;
-  }
+ box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  padding: 20px;
 `;
 
 const Title = styled.h1`
@@ -57,26 +65,31 @@ const Footer = styled.footer`
 const App = () => {
   return (
     <>
-  <Container>
-      <Content>
-        <DashboardSection>
-          <Title>Personal Finance Tracker</Title>
-          <AddTransaction />
-          <TransactionList />
-        </DashboardSection>
-        <DashboardSection>
-          <Summary />
-          {/* <CategoryBreakdown /> */}
-        </DashboardSection>
-      </Content>
-    
-    </Container>
-  
+      <Container>
+        <Content>
+          <LeftColumn>
+            <Title>Personal Finance Tracker</Title>
+            <CategoryBreakDown />
+          </LeftColumn>
+          <RightColumn>
+            <DashboardSection>
+              <Summary />
+              <AddTransaction />
+            </DashboardSection>
+          
+            
+          
+            <DashboardSection>
+              <TransactionList />
+            </DashboardSection>
+          </RightColumn>
+        </Content>
+      </Container>
       <Footer>
         &copy; {new Date().getFullYear()} Personal Finance Tracker. All rights reserved.
       </Footer>
-    </>)
-  
+    </>
+  );
 }
 
 export default App;

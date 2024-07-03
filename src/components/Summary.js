@@ -2,6 +2,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { CiSaveDown2, CiSaveUp2, CiWallet } from 'react-icons/ci';
 
 const SummaryContainer = styled.div`
   display: flex;
@@ -9,7 +10,7 @@ const SummaryContainer = styled.div`
   padding: 20px;
   background-color: #f8f9fa;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 20px 0;
   @media (max-width: 768px) {
     flex-direction: column;
@@ -24,9 +25,10 @@ const SummaryItem = styled.div`
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 0 10px;
   min-width: 150px;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 
   @media (max-width: 768px) {
     margin: 10px 0;
@@ -37,13 +39,24 @@ const SummaryItem = styled.div`
 const SummaryLabel = styled.div`
   font-size: 16px;
   font-weight: bold;
-  color: #333;
+  color:#102C57;
 `;
 
 const SummaryValue = styled.div`
   font-size: 24px;
   color: #007bff;
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+`;
+
+const IconContainer = styled.div`
+  margin-right: 10px;
+`;
+
+const RupeeSymbol = styled.span`
+  color: gray;
+  margin-right: 5px;
 `;
 
 const Summary = () => {
@@ -56,15 +69,30 @@ const Summary = () => {
     <SummaryContainer>
       <SummaryItem>
         <SummaryLabel>Total Income</SummaryLabel>
-        <SummaryValue>{income}</SummaryValue>
+        <SummaryValue>
+          <IconContainer style={{ color: 'green',fontWeight:"bolder" }}>
+            <CiSaveUp2  style={{ color: 'green',fontWeight:"bolder" }}/>
+          </IconContainer>
+          <RupeeSymbol style={{ color: 'green'}}>₹</RupeeSymbol>{income}
+        </SummaryValue>
       </SummaryItem>
       <SummaryItem>
         <SummaryLabel>Total Expenses</SummaryLabel>
-        <SummaryValue>{expenses}</SummaryValue>
+        <SummaryValue>
+          <IconContainer style={{ color: 'red',fontWeight:"bolder"  }}>
+            <CiSaveDown2  style={{ color: 'red',fontWeight:"bolder"  }} />
+          </IconContainer>
+          <RupeeSymbol  style={{ color: 'red', }}>₹</RupeeSymbol>{expenses}
+        </SummaryValue>
       </SummaryItem>
       <SummaryItem>
         <SummaryLabel>Balance</SummaryLabel>
-        <SummaryValue>{balance}</SummaryValue>
+        <SummaryValue>
+          <IconContainer style={{ color: 'blue' }}>
+          <CiWallet />
+          </IconContainer>
+          <RupeeSymbol>₹</RupeeSymbol>{balance}
+        </SummaryValue>
       </SummaryItem>
     </SummaryContainer>
   );

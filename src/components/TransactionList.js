@@ -4,52 +4,57 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteTransaction, fetchTransactions } from '../redux/action/action';
 import styled from 'styled-components';
 
-const ListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+const TableContainer = styled.div`
   padding: 20px;
   background-color: #f8f9fa;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 800px;
   margin: 0 auto;
+
   @media (max-width: 768px) {
     padding: 15px;
     max-width: 100%;
+    overflow-x: auto;
   }
 `;
 
-const List = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
 `;
 
-const ListItem = styled.li`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const TableHead = styled.thead`
+  background-color: #EEEDEB;
+  color: #102C57;
+`;
+
+const TableRow = styled.tr`
+  &:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+`;
+
+const TableHeader = styled.th`
   padding: 15px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 `;
 
-const ListItemContent = styled.span`
-  flex: 1;
-  text-align: center;
-  font-size: 16px;
+const TableCell = styled.td`
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
 `;
 
 const DeleteButton = styled.button`
-  padding: 10px;
-  background-color: #dc3545;
+  padding: 7px;
+  background-color: #FFB1B1;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 
@@ -93,19 +98,33 @@ const TransactionList = () => {
   }
 
   return (
-    <ListContainer>
-      <List>
-        {transactions?.map((transaction) => (
-          <ListItem key={transaction.id} style={transaction.type=="expense"?{backgroundColor:"#f8d7da"}:{backgroundColor:"#d4edda"}}>
+    <TableContainer>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeader>Name</TableHeader>
+            <TableHeader>Type</TableHeader>
+            <TableHeader>Description</TableHeader>
+            <TableHeader>Amount</TableHeader>
+            <TableHeader>Action</TableHeader>
+          </TableRow>
+        </TableHead>
+        <tbody>
+          {transactions?.map((transaction) => (
+            <TableRow key={transaction.id}>
+              <TableCell>{transaction.category}</TableCell>
+              <TableCell>{transaction.type}</TableCell>
+              <TableCell>{transaction.description}</TableCell>
+              <TableCell style={transaction.type=="income"?{color:"green"}:{color:"red"}}>{transaction.type=="income"?"+ ₹":"- ₹"}{transaction.amount}</TableCell>
 
-            <ListItemContent>{transaction.description}</ListItemContent>
-            <ListItemContent>{transaction.category}</ListItemContent>
-            <ListItemContent>{transaction.amount}</ListItemContent>
-            <DeleteButton onClick={() => handleDelete(transaction.id)}>Delete</DeleteButton>
-          </ListItem>
-        ))}
-      </List>
-    </ListContainer>
+              <TableCell>
+                <DeleteButton onClick={() => handleDelete(transaction.id)}>x</DeleteButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </tbody>
+      </Table>
+    </TableContainer>
   );
 };
 
