@@ -1,42 +1,80 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Pie } from "react-chartjs-2";
-import chroma from 'chroma-js'; // Import chroma-js
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import chroma from "chroma-js"; // Import chroma-js
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const CategoryBreakDown = () => {
   const transactions = useSelector((state) => state.transactions.transactions);
-  const expenseCategories = transactions?.filter((t) => t.type === "expense")?.reduce((acc, curr) => {
-    acc[curr.category] = (acc[curr.category] || 0) + curr.amount;
-    return acc;
-  }, {});
 
-  // Generate dynamic colors using chroma-js
-  const colors = chroma.scale(['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']).mode('lch').colors(Object.keys(expenseCategories || {}).length);
-
-  const data = {
-    labels: Object.keys(expenseCategories || {}),
-    datasets: [
-      {
-        data: Object.values(expenseCategories || {}),
-        backgroundColor: colors, // Use the dynamically generated colors
-      },
-    ],
-  };
-
-  // State to manage chart key
-  const [chartKey, setChartKey] = useState(0);
+  const [expenseCategories, setExpenseCategories] = useState([]);
+  const [colors, setColors] = useState([]);
 
   useEffect(() => {
-    // Increment key to force chart re-render when data changes
-    setChartKey(prevKey => prevKey + 1);
+    try {
+      const categories = transactions
+        ?.filter((t) => t.type === "expense")
+        ?.reduce((acc, curr) => {
+          acc[curr.category] = (acc[curr.category] || 0) + curr.amount;
+          return acc;
+        }, {});
+
+      const categoryList = Object.keys(categories || {}).map((key) => ({
+        name: key,
+        value: categories[key],
+      }));
+
+      // Generate dynamic colors using chroma-js
+      const colorList = chroma
+        .scale(["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"])
+        .mode("lch")
+        .colors(categoryList.length);
+
+      setExpenseCategories(categoryList);
+      setColors(colorList);
+    } catch (error) {
+      console.error("Error processing transactions:", error);
+    }
   }, [transactions]);
+
+  const chartData = useMemo(() => expenseCategories, [expenseCategories]);
 
   return (
     <div>
-      <h3 style={{ textAlign: 'center', color: '#666' }}>Expense Breakdown by Category</h3>
-      <Pie key={chartKey} data={data} />
+      <h3 style={{ textAlign: "center", color: "#666" }}>
+        Expense Breakdown by Category
+      </h3>
+      {chartData.length > 0 ? (
+        <PieChart width={400} height={400}>
+          <Pie
+            data={chartData}
+            cx="50%"
+            cy="50%"
+            outerRadius={150}
+            fill="#8884d8"
+            dataKey="value"
+            label
+          >
+            {chartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      ) : (
+        <p style={{ textAlign: "center", color: "#666" }}>
+          No expense data available
+        </p>
+      )}
     </div>
   );
 };
 
-export default CategoryBreakDown;
+const CategoryBreakDownWithBoundary = () => (
+  <ErrorBoundary>
+    <CategoryBreakDown />
+  </ErrorBoundary>
+);
+
+export default CategoryBreakDownWithBoundary;

@@ -57,11 +57,18 @@
       "description": "Food"
     },
     {
-      "id": "fcbf",
+      "id": "2289",
       "type": "expense",
-      "amount": 200,
+      "amount": 20000,
       "category": "KFC",
-      "description": "Food"
+      "description": "food"
+    },
+    {
+      "id": "a0c2",
+      "type": "income",
+      "amount": 1000000,
+      "category": "Saving",
+      "description": "out source"
     }
   ]
 }
