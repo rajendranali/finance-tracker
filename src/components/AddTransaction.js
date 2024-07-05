@@ -1,8 +1,9 @@
-// src/components/AddTransaction.js
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addTransaction, fetchTransactions } from '../redux/action/action';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormContainer = styled.div`
   display: flex;
@@ -15,6 +16,7 @@ const FormContainer = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 3;
 `;
 
 const Form = styled.form`
@@ -92,7 +94,7 @@ const ModalButton = styled.button`
   &:hover {
     background-color: #0056b3;
     transform: scale(1.02);
-    color:white;
+    color: white;
   }
 
   &:active {
@@ -108,17 +110,25 @@ const AddTransaction = () => {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.transactions);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTransaction = { type, amount: parseFloat(amount), category, description };
-    dispatch(addTransaction(newTransaction));
-    dispatch(fetchTransactions());
-    setShowModal(false); // Close modal after submission
-    setType('income');
-    setAmount('');
-    setCategory('');
-    setDescription('');
+
+    dispatch(addTransaction(newTransaction))
+      .then(() => {
+        dispatch(fetchTransactions());
+        toast.success('Transaction added successfully!');
+        setShowModal(false); // Close modal after submission
+        setType('income');
+        setAmount('');
+        setCategory('');
+        setDescription('');
+      })
+      .catch(() => {
+        toast.error('Failed to add transaction');
+      });
   };
 
   return (
@@ -126,11 +136,10 @@ const AddTransaction = () => {
       <ModalButton onClick={() => setShowModal(true)}>Add Transaction💳</ModalButton>
       {showModal && (
         <FormContainer onClick={() => setShowModal(false)}>
-          <Form onClick={(e) => 
-            e.stopPropagation()
-            }
+          <Form
+            onClick={(e) => e.stopPropagation()}
             onSubmit={handleSubmit}
-            >
+          >
             <FormGroup>
               <Label>Type:</Label>
               <Select value={type} onChange={(e) => setType(e.target.value)}>
@@ -140,20 +149,35 @@ const AddTransaction = () => {
             </FormGroup>
             <FormGroup>
               <Label>Amount:</Label>
-              <Input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} required />
+              <Input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                required
+              />
             </FormGroup>
             <FormGroup>
               <Label>Category:</Label>
-              <Input type="text" value={category} onChange={(e) => setCategory(e.target.value)} required />
+              <Input
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                required
+              />
             </FormGroup>
             <FormGroup>
               <Label>Description:</Label>
-              <Input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+              <Input
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
             </FormGroup>
-            <Button type="submit" >Add Transaction</Button>
+            <Button type="submit">Add Transaction</Button>
           </Form>
         </FormContainer>
       )}
+      <ToastContainer />
     </>
   );
 };

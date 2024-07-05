@@ -1,19 +1,29 @@
-// src/components/TransactionList.js
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTransaction, fetchTransactions } from '../redux/action/action';
 import styled from 'styled-components';
 
 const TableContainer = styled.div`
-  padding: 20px;
+  padding: 2px 20px 20px 20px; /* Remove top padding */
   background-color: #f8f9fa;
   border-radius: 8px;
-//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 800px;
   margin: 0 auto;
+  height: 500px; /* Set a fixed height for the table container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  position: relative; /* Ensure the header is positioned relative to this container */
+  
+  /* Hide scrollbar for WebKit browsers */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 
   @media (max-width: 768px) {
-    padding: 15px;
+    padding: 0 15px 15px 15px; /* Remove top padding */
     max-width: 100%;
     overflow-x: auto;
   }
@@ -27,6 +37,9 @@ const Table = styled.table`
 const TableHead = styled.thead`
   background-color: #EEEDEB;
   color: #102C57;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 const TableRow = styled.tr`
@@ -115,8 +128,9 @@ const TransactionList = () => {
               <TableCell>{transaction.category}</TableCell>
               <TableCell>{transaction.type}</TableCell>
               <TableCell>{transaction.description}</TableCell>
-              <TableCell style={transaction.type=="income"?{color:"green"}:{color:"red"}}>{transaction.type=="income"?"+ ₹":"- ₹"}{transaction.amount}</TableCell>
-
+              <TableCell style={transaction.type === "income" ? { color: "green" } : { color: "red" }}>
+                {transaction.type === "income" ? "+ ₹" : "- ₹"}{transaction.amount}
+              </TableCell>
               <TableCell>
                 <DeleteButton onClick={() => handleDelete(transaction.id)}>x</DeleteButton>
               </TableCell>

@@ -1,74 +1,60 @@
 {
   "transactions": [
     {
-      "id": "2928",
-      "type": "income",
-      "amount": 300,
-      "category": "saving",
-      "description": "test"
+      "id": "1bb2",
+      "type": "expense",
+      "amount": 15,
+      "category": "Travel",
+      "description": "Bus Fare"
     },
     {
-      "id": "0f69",
+      "id": "0087",
       "type": "income",
-      "amount": 10000,
+      "amount": 25000,
       "category": "Salary",
-      "description": "xy compay"
+      "description": "xy company"
     },
     {
-      "id": "2ae5",
+      "id": "4e52",
       "type": "expense",
-      "amount": 200,
-      "category": "Food",
-      "description": "Daily food"
+      "amount": 7000,
+      "category": "Rent",
+      "description": "House Rent"
     },
     {
-      "id": "a5a6",
-      "type": "income",
-      "amount": 2000,
-      "category": "Extra income",
-      "description": "out-source"
-    },
-    {
-      "id": "75da",
-      "type": "expense",
-      "amount": 1000,
-      "category": "Shopping",
-      "description": "shoes,Shirt"
-    },
-    {
-      "id": "bd07",
-      "type": "expense",
-      "amount": 2000,
-      "category": "Party",
-      "description": "beer,resurant"
-    },
-    {
-      "id": "054d",
-      "type": "expense",
-      "amount": 100,
-      "category": "Outing",
-      "description": "renting bike"
-    },
-    {
-      "id": "1844",
+      "id": "95f7",
       "type": "expense",
       "amount": 500,
       "category": "KFC",
-      "description": "Food"
+      "description": "Eating"
     },
     {
-      "id": "2289",
-      "type": "expense",
-      "amount": 20000,
-      "category": "KFC",
-      "description": "food"
-    },
-    {
-      "id": "a0c2",
+      "id": "c120",
       "type": "income",
-      "amount": 1000000,
-      "category": "Saving",
-      "description": "out source"
+      "amount": 40000,
+      "category": "Out-Source",
+      "description": "extra-income"
+    },
+    {
+      "id": "4e1b",
+      "type": "expense",
+      "amount": 3000,
+      "category": "Shopping",
+      "description": "Shoes,Shirt"
+    },
+    {
+      "id": "f83a",
+      "type": "income",
+      "amount": 2000,
+      "category": "Cash Back",
+      "description": "Phone pay "
+    },
+    {
+      "id": "4c03",
+      "type": "income",
+      "amount": 3000,
+      "category": "KFC",
+      "description": "commision"
     }
   ]
 }

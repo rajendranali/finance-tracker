@@ -1,10 +1,10 @@
 // src/App.js
-import React from 'react';
-import styled from 'styled-components';
-import AddTransaction from './components/AddTransaction';
-import TransactionList from './components/TransactionList';
-import Summary from './components/Summary';
-import CategoryBreakDown from './components/CategoryBreakDown';
+import React from "react";
+import styled from "styled-components";
+import AddTransaction from "./components/AddTransaction";
+import TransactionList from "./components/TransactionList";
+import Summary from "./components/Summary";
+import CategoryBreakDown from "./components/CategoryBreakDown";
 
 const Container = styled.div`
   background-color: #f0f0f0;
@@ -46,14 +46,15 @@ const RightColumn = styled.div`
 const DashboardSection = styled.div`
   background-color: #ffffff;
   border-radius: 10px;
- box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   padding: 20px;
 `;
 
 const Title = styled.h1`
   text-align: center;
   margin-bottom: 30px;
-  color: #333;
+  color: #131842;
 `;
 
 const Footer = styled.footer`
@@ -76,9 +77,7 @@ const App = () => {
               <Summary />
               <AddTransaction />
             </DashboardSection>
-          
-            
-          
+
             <DashboardSection>
               <TransactionList />
             </DashboardSection>
@@ -86,10 +85,11 @@ const App = () => {
         </Content>
       </Container>
       <Footer>
-        &copy; {new Date().getFullYear()} Personal Finance Tracker. All rights reserved.
+        &copy; {new Date().getFullYear()} Personal Finance Tracker(Rajendra Nali). All rights
+        reserved.
       </Footer>
     </>
   );
-}
+};
 
 export default App;
