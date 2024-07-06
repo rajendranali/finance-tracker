@@ -13,6 +13,12 @@ const TableContainer = styled.div`
   overflow: hidden;
 `;
 
+const TableWrapper = styled.div`
+  max-height: 500px;
+  overflow-y: auto;
+  border-radius: 8px;
+`;
+
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -21,6 +27,9 @@ const Table = styled.table`
 const TableHead = styled.thead`
   background-color: #eeedeb;
   color: #102c57;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 const TableRow = styled.tr`
@@ -63,6 +72,8 @@ const FilterContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  padding: 5px;
 `;
 
 const DateFilter = styled.div`
@@ -72,6 +83,7 @@ const DateFilter = styled.div`
 
 const DateLabel = styled.label`
   margin-right: 10px;
+  font-size: 14px;
 `;
 
 const DateInput = styled.input`
@@ -126,6 +138,7 @@ const TransactionList = () => {
   return (
     <TableContainer>
       <FilterContainer>
+        <label style={{color:"GrayText"}}>Filter by Date Range</label>
         <DateFilter>
           <DateLabel>Start Date:</DateLabel>
           <DateInput type="date" value={startDate} onChange={handleStartDateChange} />
@@ -138,38 +151,40 @@ const TransactionList = () => {
       {loading && <Loading>Loading...</Loading>}
       {error && <Error>{error}</Error>}
       {!loading && !error && (
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Category</TableHeader>
-              <TableHeader>Type</TableHeader>
-              <TableHeader>Description</TableHeader>
-              <TableHeader>Amount</TableHeader>
-              <TableHeader>Date</TableHeader>
-              <TableHeader>Time</TableHeader>
-              <TableHeader>Action</TableHeader>
-            </TableRow>
-          </TableHead>
-          <tbody>
-            {filteredTransactions.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell>{transaction.category}</TableCell>
-                <TableCell>{transaction.type}</TableCell>
-                <TableCell>{transaction.description}</TableCell>
-                <TableCell style={{ color: transaction.type === 'income' ? 'green' : 'red' }}>
-                  {transaction.type === 'income' ? `+ ₹${transaction.amount}` : `- ₹${transaction.amount}`}
-                </TableCell>
-                <TableCell>{transaction.date}</TableCell>
-                <TableCell>{transaction.time}</TableCell>
-                <TableCell>
-                  <DeleteButton onClick={() => handleDelete(transaction.id)}>
-                    <AiTwotoneDelete />
-                  </DeleteButton>
-                </TableCell>
+        <TableWrapper>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableHeader>Category</TableHeader>
+                <TableHeader>Type</TableHeader>
+                <TableHeader>Description</TableHeader>
+                <TableHeader>Amount</TableHeader>
+                <TableHeader>Date</TableHeader>
+                <TableHeader>Time</TableHeader>
+                <TableHeader>Action</TableHeader>
               </TableRow>
-            ))}
-          </tbody>
-        </Table>
+            </TableHead>
+            <tbody>
+              {filteredTransactions.map((transaction) => (
+                <TableRow key={transaction.id}>
+                  <TableCell>{transaction.category}</TableCell>
+                  <TableCell>{transaction.type}</TableCell>
+                  <TableCell>{transaction.description}</TableCell>
+                  <TableCell style={{ color: transaction.type === 'income' ? 'green' : 'red' }}>
+                    {transaction.type === 'income' ? `+ ₹${transaction.amount}` : `- ₹${transaction.amount}`}
+                  </TableCell>
+                  <TableCell>{transaction.date}</TableCell>
+                  <TableCell>{transaction.time}</TableCell>
+                  <TableCell>
+                    <DeleteButton onClick={() => handleDelete(transaction.id)}>
+                      <AiTwotoneDelete />
+                    </DeleteButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+        </TableWrapper>
       )}
     </TableContainer>
   );
