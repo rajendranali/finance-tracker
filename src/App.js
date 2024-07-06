@@ -19,12 +19,12 @@ const Content = styled.div`
   background-color: #ffffff;
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  padding: 40px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 40px;
-  max-width: 1200px;
-  margin: auto;
+  max-width: auto;
+  margin:70px;
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;

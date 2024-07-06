@@ -1,32 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTransaction, fetchTransactions } from '../redux/action/action';
 import styled from 'styled-components';
+import { AiTwotoneDelete } from 'react-icons/ai';
 
 const TableContainer = styled.div`
-  padding: 2px 20px 20px 20px; /* Remove top padding */
+  padding: 20px;
   background-color: #f8f9fa;
   border-radius: 8px;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  height: 500px; /* Set a fixed height for the table container */
-  overflow-y: auto; /* Enable vertical scrolling */
-  position: relative; /* Ensure the header is positioned relative to this container */
-  
-  /* Hide scrollbar for WebKit browsers */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Hide scrollbar for Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-
-  @media (max-width: 768px) {
-    padding: 0 15px 15px 15px; /* Remove top padding */
-    max-width: 100%;
-    overflow-x: auto;
-  }
+  overflow: hidden;
 `;
 
 const Table = styled.table`
@@ -35,11 +19,8 @@ const Table = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: #EEEDEB;
-  color: #102C57;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  background-color: #eeedeb;
+  color: #102c57;
 `;
 
 const TableRow = styled.tr`
@@ -55,15 +36,15 @@ const TableHeader = styled.th`
 `;
 
 const TableCell = styled.td`
-  padding: 10px;
+  padding: 15px 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
-  font-size: 14px;
+  font-size: 13px;
 `;
 
 const DeleteButton = styled.button`
   padding: 7px;
-  background-color: #FFB1B1;
+  background-color: #ffb1b1;
   color: white;
   border: none;
   border-radius: 4px;
@@ -75,6 +56,28 @@ const DeleteButton = styled.button`
     background-color: #c82333;
     transform: scale(1.05);
   }
+`;
+
+const FilterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
+const DateFilter = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const DateLabel = styled.label`
+  margin-right: 10px;
+`;
+
+const DateInput = styled.input`
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 `;
 
 const Loading = styled.div`
@@ -92,6 +95,8 @@ const Error = styled.div`
 const TransactionList = () => {
   const dispatch = useDispatch();
   const { transactions, loading, error } = useSelector((state) => state.transactions);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   useEffect(() => {
     dispatch(fetchTransactions());
@@ -102,42 +107,70 @@ const TransactionList = () => {
     dispatch(fetchTransactions());
   };
 
-  if (loading) {
-    return <Loading>Loading...</Loading>;
-  }
+  const handleStartDateChange = (e) => {
+    setStartDate(e.target.value);
+  };
 
-  if (error) {
-    return <Error>{error}</Error>;
-  }
+  const handleEndDateChange = (e) => {
+    setEndDate(e.target.value);
+  };
+
+  const filteredTransactions = transactions.filter((transaction) => {
+    if (!startDate || !endDate) {
+      return true; // No date range selected, show all transactions
+    }
+    const transactionDate = new Date(transaction.date);
+    return transactionDate >= new Date(startDate) && transactionDate <= new Date(endDate);
+  }).slice().reverse(); // Ensure a new array is created to trigger re-render
 
   return (
     <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeader>Name</TableHeader>
-            <TableHeader>Type</TableHeader>
-            <TableHeader>Description</TableHeader>
-            <TableHeader>Amount</TableHeader>
-            <TableHeader>Action</TableHeader>
-          </TableRow>
-        </TableHead>
-        <tbody>
-          {transactions?.map((transaction) => (
-            <TableRow key={transaction.id}>
-              <TableCell>{transaction.category}</TableCell>
-              <TableCell>{transaction.type}</TableCell>
-              <TableCell>{transaction.description}</TableCell>
-              <TableCell style={transaction.type === "income" ? { color: "green" } : { color: "red" }}>
-                {transaction.type === "income" ? "+ ₹" : "- ₹"}{transaction.amount}
-              </TableCell>
-              <TableCell>
-                <DeleteButton onClick={() => handleDelete(transaction.id)}>x</DeleteButton>
-              </TableCell>
+      <FilterContainer>
+        <DateFilter>
+          <DateLabel>Start Date:</DateLabel>
+          <DateInput type="date" value={startDate} onChange={handleStartDateChange} />
+        </DateFilter>
+        <DateFilter>
+          <DateLabel>End Date:</DateLabel>
+          <DateInput type="date" value={endDate} onChange={handleEndDateChange} />
+        </DateFilter>
+      </FilterContainer>
+      {loading && <Loading>Loading...</Loading>}
+      {error && <Error>{error}</Error>}
+      {!loading && !error && (
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHeader>Category</TableHeader>
+              <TableHeader>Type</TableHeader>
+              <TableHeader>Description</TableHeader>
+              <TableHeader>Amount</TableHeader>
+              <TableHeader>Date</TableHeader>
+              <TableHeader>Time</TableHeader>
+              <TableHeader>Action</TableHeader>
             </TableRow>
-          ))}
-        </tbody>
-      </Table>
+          </TableHead>
+          <tbody>
+            {filteredTransactions.map((transaction) => (
+              <TableRow key={transaction.id}>
+                <TableCell>{transaction.category}</TableCell>
+                <TableCell>{transaction.type}</TableCell>
+                <TableCell>{transaction.description}</TableCell>
+                <TableCell style={{ color: transaction.type === 'income' ? 'green' : 'red' }}>
+                  {transaction.type === 'income' ? `+ ₹${transaction.amount}` : `- ₹${transaction.amount}`}
+                </TableCell>
+                <TableCell>{transaction.date}</TableCell>
+                <TableCell>{transaction.time}</TableCell>
+                <TableCell>
+                  <DeleteButton onClick={() => handleDelete(transaction.id)}>
+                    <AiTwotoneDelete />
+                  </DeleteButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </tbody>
+        </Table>
+      )}
     </TableContainer>
   );
 };

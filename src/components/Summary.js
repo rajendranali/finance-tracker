@@ -87,7 +87,8 @@ const Summary = () => {
       </SummaryItem>
       <SummaryItem>
         <SummaryLabel>Balance</SummaryLabel>
-        <SummaryValue>
+        <SummaryValue style={balance<0?{color:"red"}:{color:"green"}}>
+
           <IconContainer style={{ color: 'blue' }}>
           <CiWallet />
           </IconContainer>

@@ -109,12 +109,28 @@ const AddTransaction = () => {
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.transactions);
 
+  const formatTime = (time) => {
+    const [hour, minute] = time.split(':');
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const formattedHour = hour % 12 || 12;
+    return `${formattedHour}:${minute} ${ampm}`;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newTransaction = { type, amount: parseFloat(amount), category, description };
+    const newTransaction = { 
+      type, 
+      amount: parseFloat(amount), 
+      category, 
+      description, 
+      date, 
+      time: formatTime(time) 
+    };
 
     dispatch(addTransaction(newTransaction))
       .then(() => {
@@ -125,6 +141,8 @@ const AddTransaction = () => {
         setAmount('');
         setCategory('');
         setDescription('');
+        setDate('');
+        setTime('');
       })
       .catch(() => {
         toast.error('Failed to add transaction');
@@ -171,6 +189,24 @@ const AddTransaction = () => {
                 type="text"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Date:</Label>
+              <Input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Time:</Label>
+              <Input
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                required
               />
             </FormGroup>
             <Button type="submit">Add Transaction</Button>

@@ -1,60 +1,67 @@
 {
   "transactions": [
     {
-      "id": "1bb2",
-      "type": "expense",
-      "amount": 15,
-      "category": "Travel",
-      "description": "Bus Fare"
-    },
-    {
-      "id": "0087",
-      "type": "income",
-      "amount": 25000,
-      "category": "Salary",
-      "description": "xy company"
-    },
-    {
-      "id": "4e52",
-      "type": "expense",
-      "amount": 7000,
-      "category": "Rent",
-      "description": "House Rent"
-    },
-    {
-      "id": "95f7",
-      "type": "expense",
-      "amount": 500,
-      "category": "KFC",
-      "description": "Eating"
-    },
-    {
-      "id": "c120",
-      "type": "income",
-      "amount": 40000,
-      "category": "Out-Source",
-      "description": "extra-income"
-    },
-    {
-      "id": "4e1b",
-      "type": "expense",
-      "amount": 3000,
-      "category": "Shopping",
-      "description": "Shoes,Shirt"
-    },
-    {
-      "id": "f83a",
+      "id": "3a00",
       "type": "income",
       "amount": 2000,
-      "category": "Cash Back",
-      "description": "Phone pay "
+      "category": "adding fund",
+      "description": "tes",
+      "date": "2024-07-06",
+      "time": "11:14 AM"
     },
     {
-      "id": "4c03",
+      "id": "640f",
       "type": "income",
-      "amount": 3000,
+      "amount": 20000,
+      "category": "Selling lmobile",
+      "description": "mobile",
+      "date": "2024-07-06",
+      "time": "11:15 AM"
+    },
+    {
+      "id": "d9ef",
+      "type": "expense",
+      "amount": 20000,
+      "category": "shoes",
+      "description": "shoes",
+      "date": "2024-07-06",
+      "time": "11:16 PM"
+    },
+    {
+      "id": "19de",
+      "type": "income",
+      "amount": 200,
       "category": "KFC",
-      "description": "commision"
+      "description": "food",
+      "date": "2024-07-06",
+      "time": "11:36 AM"
+    },
+    {
+      "id": "951f",
+      "type": "expense",
+      "amount": 2000,
+      "category": "Resturants",
+      "description": "food",
+      "date": "2024-07-06",
+      "time": "11:37 AM"
+    },
+    {
+      "id": "ca50",
+      "type": "expense",
+      "amount": 300,
+      "category": "KFC",
+      "description": "food",
+      "date": "2024-07-06",
+      "time": "11:39 AM"
+    },
+    {
+      "id": "c7ab",
+      "type": "income",
+      "amount": 20000,
+      "category": "Shopping",
+      "description": "food",
+      "date": "2024-07-04",
+      "time": "12:00 PM"
     }
   ]
 }
